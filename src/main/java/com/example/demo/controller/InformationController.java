@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.demo.service.InformationService;
 import com.example.demo.beans.Information;
+import com.example.demo.beans.InformationList;
+
 import java.math.BigDecimal;
 import java.net.URI;
 
@@ -24,9 +26,9 @@ public class InformationController {
 	    
 	 @GetMapping(path="/",
 			 produces = "application/json")	 
-	 public Information getInformation()
+	 public InformationList getInformation()
 	    {
-	        return null;
+	        return informationService.getAllInformation();
 	    }
 
 	 
@@ -34,11 +36,11 @@ public class InformationController {
 	    public ResponseEntity<Object> addInformation(@RequestBody Information information)
 	    {
 		 
-		 Integer id = informationService.getAllInformation().getInformationList().size() + 1;
+			Integer id = informationService.getAllInformation().getInformationList().size() + 1;
 	        information.setId("PRODGN-00"+id);
-	        information.setProduct("GENERIC"+id);
-	        information.setSelldate(LocalDateTime.now());
-	        information.setPrice(new BigDecimal(100.00).multiply(BigDecimal.valueOf(id)));
+	        //information.setProduct("GENERIC");
+	        //information.setSelldate(LocalDateTime.now());
+	        //information.setPrice(new BigDecimal("100.00"));
 	        
 	        informationService.addInformation(information);         
 	        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
